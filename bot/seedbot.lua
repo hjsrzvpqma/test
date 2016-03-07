@@ -224,31 +224,26 @@ function create_config( )
     "invite",
     "all",
     "leave_ban",
-    "admin"
+    "admin",
+    "plugins"
     },
-    sudo_users = {110626080,103649648,143723991,111020322,0,tonumber(our_id)},--Sudo users
+    sudo_users = {90285047,184061737},--Sudo users
     disabled_channels = {},
     moderation = {data = 'data/moderation.json'},
-    about_text = [[Teleseed v2 - Open Source
+    about_text = [[CycloneTG v5 - Best of anti spams bot
 An advance Administration bot based on yagop/telegram-bot 
 
-https://github.com/SEEDTEAM/TeleSeed
-
 Admins
-@iwals [Founder]
-@imandaneshi [Developer]
-@Rondoozle [Developer]
-@seyedan25 [Manager]
+@MAKAN [Founder & Developer & Manager]
+@Aidin_alone [Founder & Developer & Manager]
 
 Special thanks to
-awkward_potato
-Siyanew
-topkecleon
-Vamptacus
+Amir
+Alireza
 
 Our channels
-@teleseedch [English]
-@iranseed [persian]
+@CycloneEN [English]
+@CycloneIR [persian]
 ]],
     help_text_realm = [[
 Realm Commands:
