@@ -1311,8 +1311,7 @@ local function run(msg, matches)
       		lock_group_join(msg, data, target),
       		lock_group_bots(msg, data, target),
       		lock_group_link(msg, data, target),
-                lock_group_chat(msg, data,
-target),
+                lock_group_chat(msg, data, target),
       	}
       	return safemode
       end
@@ -1385,8 +1384,7 @@ target),
       		unlock_group_join(msg, data, target),
       		unlock_group_bots(msg, data, target),
       		unlock_group_link(msg, data, target),
-                unlock_group_chat(msg, data,
-target),
+                unlock_group_chat(msg, data, target),
       	}
       	return de_safemode
       end
