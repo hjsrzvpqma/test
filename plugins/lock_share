@@ -17,7 +17,7 @@ chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
    end
 end
     
-return {share contact is not allowed here!
+return {
 patterns = {
 "%[(contact)%]",
 },
