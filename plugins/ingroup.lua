@@ -206,6 +206,11 @@ local function show_group_settingsmod(msg, data, target)
         lock_link = data[tostring(msg.to.id)]['settings']['lock_link']
         end
 
+  local lock_media = "no"
+    if data[tostring(msg.to.id)]['settings']['lock_media'] then
+        lock_media = data[tostring(msg.to.id)]['settings']['lock_media']
+        end
+
   local lock_share = "no"
     if data[tostring(msg.to.id)]['settings']['lock_share'] then
         lock_share = data[tostring(msg.to.id)]['settings']['lock_share']
@@ -245,7 +250,7 @@ local lock_sticker = "ok"
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-  local text = "⚙ Group Settings :\n› Lock group share : "..lock_share.."\n› Lock group chat : "..lock_chat.."\n› Lock group name : "..settings.lock_name.."\n› Lock group photo : "..settings.lock_photo.."\n› Lock group tag : "..lock_tag.."\n› Lock group member : "..settings.lock_member.."\n› Lock group English : "..lock_eng.."\n› Lock group leave : 
+  local text = "⚙ Group Settings :\n› Lock group media : "..lock_media.."\n› Lock group share : "..lock_share.."\n› Lock group chat : "..lock_chat.."\n› Lock group name : "..settings.lock_name.."\n› Lock group photo : "..settings.lock_photo.."\n› Lock group tag : "..lock_tag.."\n› Lock group member : "..settings.lock_member.."\n› Lock group English : "..lock_eng.."\n› Lock group leave : 
 "..lock_leave.."\n› Lock group bad words : "..lock_badw.."\n› Lock group links : "..lock_link.."\n› Lock group join : "..lock_join.."\n› Lock group sticker : "..lock_sticker.."\n› Flood Sensitivity : "..NUM_MSG_MAX.."\n› Bot Protection : "..bots_protection--"\nPublic: "..public
   return text
 end
@@ -376,6 +381,47 @@ local function unlock_group_link(msg, data, target)
     data[tostring(target)]['settings']['lock_link'] = 'no'
     save_data(_config.moderation.data, data)
     return 'link has been unlocked!'
+  end
+end
+
+local function unlock_group_media(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_media_lock = data[tostring(target)]['settings']['lock_media']
+  if group_media_lock == 'no' then
+    return 'media is already unlocked!'
+  else
+    data[tostring(target)]['settings']['lock_media'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'media has been unlocked!'
+  end
+end
+local function lock_group_media(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_media_lock = data[tostring(target)]['settings']['lock_media']
+  if group_media_lock == 'yes' then
+    return 'media is already locked!'
+  else
+    data[tostring(target)]['settings']['lock_media'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'media has been locked!'
+  end
+end
+
+local function unlock_group_media(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_media_lock = data[tostring(target)]['settings']['lock_media']
+  if group_media_lock == 'no' then
+    return 'media is already unlocked!'
+  else
+    data[tostring(target)]['settings']['lock_media'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'media has been unlocked!'
   end
 end
 
@@ -1359,6 +1405,7 @@ local function run(msg, matches)
       		lock_group_link(msg, data, target),
                 lock_group_chat(msg, data, target),
                 lock_group_share(msg, data, target),
+                lock_group_media(msg, data, target),
       	}
       	return safemode
       end
@@ -1385,6 +1432,10 @@ local function run(msg, matches)
           if matches[2] == 'adds' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked link ")
         return lock_group_link(msg, data, target)
+      end
+          if matches[2] == 'media' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked media ")
+        return lock_group_media(msg, data, target)
       end
           if matches[2] == 'share' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked share ")
@@ -1437,6 +1488,7 @@ local function run(msg, matches)
       		unlock_group_link(msg, data, target),
                 unlock_group_chat(msg, data, target),
                 unlock_group_share(msg, data, target),
+                unlock_group_media(msg, data, target),
       	}
       	return de_safemode
       end
@@ -1467,6 +1519,10 @@ local function run(msg, matches)
           if matches[2] == 'adds' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked link ")
         return unlock_group_link(msg, data, target)
+      end
+          if matches[2] == 'media' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked media ")
+        return unlock_group_media(msg, data, target)
       end
           if matches[2] == 'share' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked share ")
