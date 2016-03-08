@@ -130,7 +130,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "group id for " ..string.gsub(msg.to.print_name, "_", " ").. ":\n"..msg.to.id  
+      return "group name " ..string.gsub(msg.to.print_name, "_", " ").. ":\ngroup id:"..msg.to.id  
     end
   end
   if matches[1]:lower() == 'kickme' then-- /kickme
@@ -342,4 +342,3 @@ return {
   run = run,
   pre_process = pre_process
 }
-
